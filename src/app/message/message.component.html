@@ -10,8 +10,13 @@
   </span>
 </div>
 <div>
-  <input disabled>
-  <button type="button" class="btn btn-primary mr-2">
-    Reply
-  </button>
+  <button type="button" [hidden]="!hideReplies" class="btn btn-secondary-outline" (click)="toggleReplies()">Show replies</button>
+  <button type="button" [hidden]="hideReplies" class="btn btn-secondary-outline" (click)="toggleReplies()">Hide replies</button>
+  <ul [hidden]="hideReplies">
+    <li *ngFor="let reply of replies">
+      <app-reply [reply]="reply"></app-reply>
+    </li>
+  </ul>
+  <div class="error" *ngIf="">Password is required</div>
 </div>
+<app-compose-reply [parentId]="msg.id"></app-compose-reply>

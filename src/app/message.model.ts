@@ -3,4 +3,5 @@ export class Message {
   body: string;
   author: string;
   createdAt: Date;
+  constructor() {}
 }
