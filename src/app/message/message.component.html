@@ -1,3 +1,17 @@
-<p>
-  message works!
-</p>
+<div>
+  <p>
+    {{ msg.body }}
+  </p>
+  <span>
+    {{ msg.createdAt }}
+  </span>
+  <span>
+    {{ msg.author }}
+  </span>
+</div>
+<div>
+  <input disabled>
+  <button type="button" class="btn btn-primary mr-2">
+    Reply
+  </button>
+</div>

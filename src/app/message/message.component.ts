@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Message } from '../message';
 
 @Component({
   selector: 'app-message',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./message.component.scss']
 })
 export class MessageComponent implements OnInit {
-
+  @Input() msg: Message;
   constructor() { }
 
   ngOnInit() {
   }
 
 }
+
+// @TODO: add collapse alla reddit - https://ng-bootstrap.github.io/#/components/collapse/examples
