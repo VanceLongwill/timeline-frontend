@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { ApiService } from '../api.service';
 import { Message } from '../message.model';
@@ -13,6 +14,7 @@ export class MessageComponent implements OnInit {
   @Input() msg: Message;
   replies: Reply[];
   hideReplies = true;
+  getSubscription: Subscription;
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
@@ -20,7 +22,7 @@ export class MessageComponent implements OnInit {
 
   fetchReplies() {
     // @TODO: handle loading state
-    this.apiService.getReplies(this.msg.id).subscribe(res => {
+    this.getSubscription = this.apiService.getReplies(this.msg.id).subscribe(res => {
       this.replies = res.data;
     }, err => {
       // @TODO remove
@@ -43,6 +45,9 @@ export class MessageComponent implements OnInit {
     this.hideReplies = !this.hideReplies;
   }
 
+  OnDestroy() {
+    this.getSubscription.unsubscribe();
+  }
 }
 
 // @TODO: add collapse alla reddit - https://ng-bootstrap.github.io/#/components/collapse/examples

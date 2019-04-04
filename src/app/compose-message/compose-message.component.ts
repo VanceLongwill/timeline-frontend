@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+
 import { Message } from '../message.model';
 import { ApiService } from '../api.service';
 
@@ -10,6 +12,7 @@ import { ApiService } from '../api.service';
 export class ComposeMessageComponent implements OnInit {
   msg: Message = new Message();
   submitted = false;
+  createSubscription: Subscription;
 
   constructor(private apiService: ApiService) {}
   ngOnInit() {}
@@ -17,7 +20,7 @@ export class ComposeMessageComponent implements OnInit {
   onSubmit() {
     // @TODO: handle loading state
     this.submitted = true;
-    this.apiService.createMessage(this.msg).subscribe(res => {
+    this.createSubscription = this.apiService.createMessage(this.msg).subscribe(res => {
       if (res.status === 201) {
         // @TODO: handle success
       } else {
@@ -25,5 +28,10 @@ export class ComposeMessageComponent implements OnInit {
         // @TODO: handle error
       }
     });
+  }
+
+
+  OnDestroy() {
+    this.createSubscription.unsubscribe();
   }
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { ApiService } from '../api.service';
 import { Reply } from '../reply.model';
@@ -12,6 +13,8 @@ export class ComposeReplyComponent implements OnInit {
   @Input() parentId: Reply['parentId'];
   reply: Reply;
   submitted = false;
+  createSubscription: Subscription;
+
   constructor(private apiService: ApiService) {
     this.reply = new Reply(this.parentId);
   }
@@ -20,7 +23,7 @@ export class ComposeReplyComponent implements OnInit {
   }
 
   onSubmit() {
-    this.apiService.createReply(this.reply).subscribe(res => {
+    this.createSubscription = this.apiService.createReply(this.reply).subscribe(res => {
       console.log(res);
       if (res.status === 201) {
         this.submitted = true;
@@ -29,6 +32,10 @@ export class ComposeReplyComponent implements OnInit {
         // @TODO: handle error
       }
     });
+  }
+
+  OnDestroy() {
+    this.createSubscription.unsubscribe();
   }
 
 }

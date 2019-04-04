@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { Message } from '../message.model';
 import { ApiService } from '../api.service';
@@ -24,12 +25,17 @@ export class TimelineComponent implements OnInit {
   //     createdAt: new Date(),
   //   }
   // ];
+  getSubscription: Subscription;
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
-    this.apiService.getMessages().subscribe(res => {
+    this.getSubscription = this.apiService.getMessages().subscribe(res => {
       this.messages = res.data;
     });
   }
 
+
+  OnDestroy() {
+    this.getSubscription.unsubscribe();
+  }
 }
