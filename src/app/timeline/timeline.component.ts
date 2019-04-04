@@ -10,6 +10,7 @@ import { ApiService } from '../api.service';
   styleUrls: ['./timeline.component.scss']
 })
 export class TimelineComponent implements OnInit {
+  isLoadingMessages = true;
   messages: Message[];
   // messages: Message[] = [
   //   {
@@ -31,6 +32,10 @@ export class TimelineComponent implements OnInit {
   ngOnInit() {
     this.getSubscription = this.apiService.getMessages().subscribe(res => {
       this.messages = res.data;
+      this.isLoadingMessages = false;
+    }, err => {
+      console.log(err);
+      this.isLoadingMessages = false;
     });
   }
 

@@ -10,8 +10,8 @@
   </span>
 </div>
 <div>
-  <button type="button" [hidden]="!hideReplies" class="btn btn-secondary-outline" (click)="toggleReplies()">Show replies</button>
-  <button type="button" [hidden]="hideReplies" class="btn btn-secondary-outline" (click)="toggleReplies()">Hide replies</button>
+  <button type="button" *ngIf="hideReplies" class="btn btn-secondary-outline" (click)="toggleReplies()">Show replies</button>
+  <button type="button" *ngIf="!hideReplies" class="btn btn-secondary-outline" (click)="toggleReplies()">Hide replies</button>
   <ul [hidden]="hideReplies">
     <li *ngFor="let reply of replies">
       <app-reply [reply]="reply"></app-reply>

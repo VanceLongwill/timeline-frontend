@@ -14,6 +14,7 @@ export class MessageComponent implements OnInit {
   @Input() msg: Message;
   replies: Reply[];
   hideReplies = true;
+  isLoadingReplies = false;
   getSubscription: Subscription;
   constructor(private apiService: ApiService) {}
 
@@ -21,9 +22,10 @@ export class MessageComponent implements OnInit {
   }
 
   fetchReplies() {
-    // @TODO: handle loading state
+    this.isLoadingReplies = true;
     this.getSubscription = this.apiService.getReplies(this.msg.id).subscribe(res => {
       this.replies = res.data;
+      this.isLoadingReplies = false;
     }, err => {
       // @TODO remove
       this.replies = [{
@@ -34,6 +36,7 @@ export class MessageComponent implements OnInit {
         parentId: this.msg.id
       }];
       // @TODO: handle error
+      this.isLoadingReplies = false;
     });
   }
 
@@ -41,7 +44,6 @@ export class MessageComponent implements OnInit {
     if (this.replies == null) {
       this.fetchReplies();
     }
-
     this.hideReplies = !this.hideReplies;
   }
 
