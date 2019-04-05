@@ -3,7 +3,7 @@
     {{ msg.body }}
   </p>
   <span>
-    {{ msg.createdAt }}
+    {{ msg.createdAt | date:'medium' }}
   </span>
   <span>
     {{ msg.author }}

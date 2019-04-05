@@ -27,15 +27,8 @@ export class MessageComponent implements OnInit {
       this.replies = res.data;
       this.isLoadingReplies = false;
     }, err => {
-      // @TODO remove
-      this.replies = [{
-        id: 1,
-        createdAt: new Date(),
-        body: 'first comment',
-        author: 'some guy',
-        parentId: this.msg.id
-      }];
       // @TODO: handle error
+      console.log(err);
       this.isLoadingReplies = false;
     });
   }

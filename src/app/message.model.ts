@@ -1,5 +1,5 @@
 export class Message {
-  id: number;
+  id: string;
   body: string;
   author: string;
   createdAt: Date;

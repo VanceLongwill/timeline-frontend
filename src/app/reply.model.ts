@@ -1,5 +1,5 @@
 export class Reply {
-  id: number;
+  id: string;
   author: string;
   body: string;
   createdAt: Date;

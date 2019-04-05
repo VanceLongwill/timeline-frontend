@@ -16,15 +16,14 @@ export class ComposeReplyComponent implements OnInit {
   createSubscription: Subscription;
 
   constructor(private apiService: ApiService) {
-    this.reply = new Reply(this.parentId);
   }
 
   ngOnInit() {
+    this.reply = new Reply(this.parentId);
   }
 
   onSubmit() {
     this.createSubscription = this.apiService.createReply(this.reply).subscribe(res => {
-      console.log(res);
       if (res.status === 201) {
         this.submitted = true;
       } else {

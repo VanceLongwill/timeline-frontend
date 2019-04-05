@@ -1,6 +1,6 @@
 <form #composeForm="ngForm" (ngSubmit)="onSubmit()">
   <div class="form-group" [hidden]="!body.valid">
-    <input type="text" class="formControl" [(ngModel)]="msg.username" placeholder="Enter your username" name="username" required/>
+    <input type="text" class="formControl" [(ngModel)]="msg.author" placeholder="Enter your username" name="author" required/>
   </div>
   <div class="form-group">
     <input type="text" class="formControl" [(ngModel)]="msg.body" placeholder="Write something..." #body="ngModel" name="body" required/>

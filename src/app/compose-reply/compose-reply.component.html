@@ -1,5 +1,8 @@
 <form #composeReplyForm="ngForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
+    <div class="form-group" [hidden]="!body.valid">
+      <input type="text" class="formControl" [(ngModel)]="reply.author" placeholder="Enter your username" name="author" required/>
+    </div>
       <input type="text" class="formControl" [(ngModel)]="reply.body" placeholder="Write something..." #body="ngModel" name="body" required/>
     <button type="submit" class="btn btn-secondary mr-2" [disabled]="!composeReplyForm.form.valid">
       Reply
