@@ -25,12 +25,11 @@ type GetRepliesResponse = ApiResponse<Reply[]>;
   providedIn: 'root'
 })
 export class ApiService {
-  baseUrl = 'http://localhost:3000';
+  baseUrl = 'http://localhost:1337/api/v1';
   retryLimit = 3;
   constructor(private http: HttpClient) {}
 
   createMessage(msg: Message): Observable<CreateMessageResponse> {
-    msg.createdAt = new Date();
     return this.http.post<CreateMessageResponse>(`${this.baseUrl}/messages`, msg)
       .pipe(
         retry(this.retryLimit)
@@ -53,8 +52,7 @@ export class ApiService {
   }
 
   createReply(reply: Reply): Observable<CreateReplyResponse> {
-    reply.createdAt = new Date();
-    return this.http.post<CreateReplyResponse>(`${this.baseUrl}/messages/${reply.parentId}/reply`, reply)
+    return this.http.post<CreateReplyResponse>(`${this.baseUrl}/messages/${reply.parentId}`, reply)
       .pipe(
         retry(this.retryLimit)
       );
@@ -62,7 +60,7 @@ export class ApiService {
 
   getReplies(msgId: Message['id']): Observable<GetRepliesResponse> {
     // @TODO: pagination
-    return this.http.get<GetRepliesResponse>(`${this.baseUrl}/messages/${msgId}/replies`)
+    return this.http.get<GetRepliesResponse>(`${this.baseUrl}/messages/${msgId}`)
       .pipe(
         retry(this.retryLimit),
         map((res) => {
