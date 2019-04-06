@@ -8,9 +8,11 @@ export interface MessagesState {
   errorMessage: string;
   loading: boolean;
   messages: Message[];
+  optimisticUpdateCount: number;
 }
 
 export const initialState: MessagesState = {
+  optimisticUpdateCount: 0,
   hasError: false,
   errorMessage: '',
   loading: false,
@@ -42,12 +44,22 @@ export function messagesReducer(state: MessagesState = initialState, action: Mes
       return {
         ...state,
         messages: [
+          { // optimistic update
+            ...action.payload.message,
+            createdAt: new Date(),
+          },
           ...state.messages,
-          action.payload.message, // optimistic
         ],
-        loading: true,
-        hasError: false,
       };
+    case MessagesActions.ActionTypes.MessageCreateFail:
+      // undo the optimistic update on fail
+      const messages = state.messages.slice(1);
+      return {
+        ...state,
+        messages,
+      };
+    default:
+      return state;
   }
 }
 

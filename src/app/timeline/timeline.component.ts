@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Store, select } from '@ngrx/store';
 import { Message } from '../message.model';
 
-import { MessagesFetch, MessagesFetchFail, MessagesFetchSuccess } from '../actions/messages.actions';
-import { MessagesState } from '../reducers/messages.reducer';
+import { MessagesFetch } from '../actions/messages.actions';
+import { State } from '../reducers';
 
 import { ApiService } from '../api.service';
 
@@ -31,10 +31,11 @@ export class TimelineComponent implements OnInit {
   //     createdAt: new Date(),
   //   }
   // ];
-  getSubscription: Subscription;
-  constructor(private store: Store<MessagesState>) {
+  constructor(private store: Store<State>) {
+    // store.messages.messages
+    console.log(store);
     this.messages = store.pipe(select('messages'), select('messages'));
-    this.isLoadingMessages = store.pipe(select('loading'));
+    this.isLoadingMessages = store.pipe(select('messages'), select('loading'));
   }
 
   ngOnInit() {

@@ -21,8 +21,22 @@ export class AppEffects {
               messages: res.data
             })
           ),
-          catchError((res) => of(new MessageActions.MessagesFetchFail({
-            error: res.message
+          catchError(res => of(new MessageActions.MessagesFetchFail({
+            error: res ? res.message : 'unknown error'
+          })))
+        )
+      )
+    );
+
+  @Effect()
+  createMessage = this.actions
+    .pipe(
+      ofType(MessageActions.ActionTypes.MessageCreate),
+      mergeMap((action: MessageActions.MessageCreate) => this.apiService.createMessage(action.payload.message)
+        .pipe(
+          map(res => new MessageActions.MessageCreateSuccess()),
+          catchError(res => of(new MessageActions.MessageCreateFail({
+            error: res ? res.message : 'unknown error'
           })))
         )
       )

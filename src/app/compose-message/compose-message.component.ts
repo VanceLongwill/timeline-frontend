@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
 
 import { Message } from '../message.model';
 import { ApiService } from '../api.service';
+
+import { State } from '../reducers';
+import { MessageCreate } from '../actions/messages.actions';
 
 @Component({
   selector: 'app-compose-message',
@@ -12,22 +16,13 @@ import { ApiService } from '../api.service';
 export class ComposeMessageComponent implements OnInit {
   msg: Message = new Message();
   submitted = false;
-  createSubscription: Subscription;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private store: Store<State>) {}
   ngOnInit() {}
 
   onSubmit() {
     this.submitted = true;
-    this.createSubscription = this.apiService.createMessage(this.msg).subscribe(res => {
-
-    }, err => {
-      // @TODO: handle error
-    });
-  }
-
-
-  OnDestroy() {
-    this.createSubscription.unsubscribe();
+    this.store.dispatch(new MessageCreate({ message: this.msg }));
+    this.msg = new Message();
   }
 }

@@ -1,4 +1,7 @@
 <section class="timeline" name="timeline">
+  <span *ngIf="isLoadingMessages | async" class="text-secondary">
+    Loading messages...
+  </span>
   <div *ngFor="let msg of messages | async">
     <app-message [msg]="msg"></app-message>
   </div>
