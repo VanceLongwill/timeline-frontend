@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
-import { Message } from '../../message.model';
+import { Message } from '../../models/message.model';
 import { MessagesFetch } from '../../actions/messages.actions';
 import { State } from '../../reducers';
 

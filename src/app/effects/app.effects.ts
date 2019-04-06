@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 
-import { ApiService } from '../api.service';
+import { ApiService } from '../services/api.service';
 import * as MessageActions from '../actions/messages.actions';
 import * as RepliesActions from '../actions/replies.actions';
 

@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Reply } from '../reply.model';
+import { Reply } from '../models/reply.model';
 import * as RepliesActions from '../actions/replies.actions';
 
 export interface RepliesState {

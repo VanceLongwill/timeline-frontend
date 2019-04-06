@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, retry } from 'rxjs/operators';
 
-import { Message } from './message.model';
-import { Reply } from './reply.model';
+import { Message } from '../models/message.model';
+import { Reply } from '../models/reply.model';
 
 // Generic interface for our api responses
 interface ApiResponse<T> {

@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Reply } from '../reply.model';
+import { Reply } from '../models/reply.model';
 
 export enum ActionTypes {
   RepliesFetch = '[Replies] RepliesFetch',

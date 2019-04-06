@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
-import { Reply } from '../../reply.model';
+import { Reply } from '../../models/reply.model';
 import { State } from '../../reducers';
 import { ReplyCreate } from '../../actions/replies.actions';
 

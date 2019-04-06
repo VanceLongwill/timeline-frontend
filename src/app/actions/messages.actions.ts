@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Message } from '../message.model';
+import { Message } from '../models/message.model';
 
 export enum ActionTypes {
   MessagesFetch = '[Messages] MessagesFetch',

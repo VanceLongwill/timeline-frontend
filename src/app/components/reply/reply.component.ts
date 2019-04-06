@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { Reply } from '../../reply.model';
+import { Reply } from '../../models/reply.model';
 
 @Component({
   selector: 'app-reply',

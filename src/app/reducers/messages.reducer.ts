@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Message } from '../message.model';
+import { Message } from '../models/message.model';
 import * as MessagesActions from '../actions/messages.actions';
 
 export interface MessagesState {
