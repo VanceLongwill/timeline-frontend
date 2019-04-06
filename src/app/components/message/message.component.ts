@@ -2,10 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
-import { Message } from '../message.model';
-import { Reply } from '../reply.model';
-import { State } from '../reducers';
-import { RepliesFetch } from '../actions/replies.actions';
+import { Message } from '../../message.model';
+import { Reply } from '../../reply.model';
+import { State } from '../../reducers';
+import { RepliesFetch } from '../../actions/replies.actions';
 
 @Component({
   selector: 'app-message',

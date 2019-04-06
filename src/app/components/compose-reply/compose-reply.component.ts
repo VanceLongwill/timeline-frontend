@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
-import { Reply } from '../reply.model';
-import { State } from '../reducers';
-import { ReplyCreate } from '../actions/replies.actions';
+import { Reply } from '../../reply.model';
+import { State } from '../../reducers';
+import { ReplyCreate } from '../../actions/replies.actions';
 
 @Component({
   selector: 'app-compose-reply',

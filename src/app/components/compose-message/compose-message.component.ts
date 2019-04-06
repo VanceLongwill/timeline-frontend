@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
-import { Message } from '../message.model';
-import { ApiService } from '../api.service';
+import { Message } from '../../message.model';
+import { ApiService } from '../../api.service';
 
-import { State } from '../reducers';
-import { MessageCreate } from '../actions/messages.actions';
+import { State } from '../../reducers';
+import { MessageCreate } from '../../actions/messages.actions';
 
 @Component({
   selector: 'app-compose-message',
