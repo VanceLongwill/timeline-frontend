@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-
 import { Store, select } from '@ngrx/store';
-import { Message } from '../message.model';
 
+import { Message } from '../message.model';
 import { MessagesFetch } from '../actions/messages.actions';
 import { State } from '../reducers';
-
-import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-timeline',
@@ -33,7 +30,6 @@ export class TimelineComponent implements OnInit {
   // ];
   constructor(private store: Store<State>) {
     // store.messages.messages
-    console.log(store);
     this.messages = store.pipe(select('messages'), select('messages'));
     this.isLoadingMessages = store.pipe(select('messages'), select('loading'));
   }

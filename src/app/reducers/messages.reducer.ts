@@ -8,11 +8,9 @@ export interface MessagesState {
   errorMessage: string;
   loading: boolean;
   messages: Message[];
-  optimisticUpdateCount: number;
 }
 
 export const initialState: MessagesState = {
-  optimisticUpdateCount: 0,
   hasError: false,
   errorMessage: '',
   loading: false,
@@ -57,6 +55,11 @@ export function messagesReducer(state: MessagesState = initialState, action: Mes
       return {
         ...state,
         messages,
+      };
+    case MessagesActions.ActionTypes.MessageCreateSuccess:
+      return {
+        ...state,
+        hasError: false,
       };
     default:
       return state;

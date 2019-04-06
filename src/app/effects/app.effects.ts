@@ -5,6 +5,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 
 import { ApiService } from '../api.service';
 import * as MessageActions from '../actions/messages.actions';
+import * as RepliesActions from '../actions/replies.actions';
 
 @Injectable()
 export class AppEffects {
@@ -42,4 +43,40 @@ export class AppEffects {
       )
     );
 
+  @Effect()
+  fetchReplies = this.actions
+    .pipe(
+      ofType(RepliesActions.ActionTypes.RepliesFetch),
+      mergeMap((action: RepliesActions.RepliesFetch) => this.apiService.getReplies(action.payload.messageId)
+        .pipe(
+          map(res =>
+            new RepliesActions.RepliesFetchSuccess({
+              messageId: action.payload.messageId,
+              replies: res.data
+            })
+          ),
+          catchError(res => of(new RepliesActions.RepliesFetchFail({
+            messageId: action.payload.messageId,
+            error: res ? res.message : 'unknown error'
+          })))
+        )
+      )
+    );
+
+  @Effect()
+  createReply = this.actions
+    .pipe(
+      ofType(RepliesActions.ActionTypes.ReplyCreate),
+      mergeMap((action: RepliesActions.ReplyCreate) => this.apiService.createReply(action.payload.reply)
+        .pipe(
+          map(res => new RepliesActions.ReplyCreateSuccess({
+            messageId: action.payload.reply.parentId,
+          })),
+          catchError(res => of(new RepliesActions.ReplyCreateFail({
+            messageId: action.payload.reply.parentId,
+            error: res ? res.message : 'unknown error'
+          })))
+        )
+      )
+    );
 }

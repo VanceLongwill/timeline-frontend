@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
 
-import { ApiService } from '../api.service';
 import { Message } from '../message.model';
 import { Reply } from '../reply.model';
+import { State } from '../reducers';
+import { RepliesFetch } from '../actions/replies.actions';
 
 @Component({
   selector: 'app-message',
@@ -12,35 +14,25 @@ import { Reply } from '../reply.model';
 })
 export class MessageComponent implements OnInit {
   @Input() msg: Message;
-  replies: Reply[];
-  isLoadingReplies = false;
-  getSubscription: Subscription;
-  constructor(private apiService: ApiService) {}
+  isLoadingReplies: Observable<boolean>;
+  replies: Observable<Reply[]>;
+  repliesEmpty = true;
+
+  constructor(private store: Store<State>) { }
 
   ngOnInit() {
+    this.replies = this.store.pipe(select('replies'), select(this.msg.id), select('replies'));
+    this.isLoadingReplies = this.store.pipe(select('replies'), select(this.msg.id), select('loading'));
   }
 
   fetchReplies() {
-    this.isLoadingReplies = true;
-    this.getSubscription = this.apiService.getReplies(this.msg.id).subscribe(res => {
-      this.replies = res.data;
-      this.isLoadingReplies = false;
-    }, err => {
-      // @TODO: handle error
-      console.log(err);
-      this.isLoadingReplies = false;
-    });
+    this.store.dispatch(new RepliesFetch({ messageId: this.msg.id }));
   }
 
   toggleReplies() {
-    if (this.replies == null) {
+    if (this.repliesEmpty) {
       this.fetchReplies();
+      this.repliesEmpty = false;
     }
   }
-
-  OnDestroy() {
-    this.getSubscription.unsubscribe();
-  }
 }
-
-// @TODO: add collapse alla reddit - https://ng-bootstrap.github.io/#/components/collapse/examples

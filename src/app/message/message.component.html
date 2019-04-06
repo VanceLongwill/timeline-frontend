@@ -27,8 +27,11 @@
       </div>
     </ng-template>
     <ng-template ngbPanelContent>
+      <span *ngIf="isLoadingReplies | async" class="text-secondary">
+        Loading replies...
+      </span>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item" *ngFor="let reply of replies">
+        <li class="list-group-item" *ngFor="let reply of replies | async">
           <app-reply [reply]="reply"></app-reply>
         </li>
       </ul>

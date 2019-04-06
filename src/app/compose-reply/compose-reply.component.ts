@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
 
-import { ApiService } from '../api.service';
 import { Reply } from '../reply.model';
+import { State } from '../reducers';
+import { ReplyCreate } from '../actions/replies.actions';
 
 @Component({
   selector: 'app-compose-reply',
@@ -13,28 +15,17 @@ export class ComposeReplyComponent implements OnInit {
   @Input() parentId: Reply['parentId'];
   reply: Reply;
   submitted = false;
-  createSubscription: Subscription;
 
-  constructor(private apiService: ApiService) {
-  }
+  constructor(private store: Store<State>) {}
 
   ngOnInit() {
     this.reply = new Reply(this.parentId);
   }
 
   onSubmit() {
-    this.createSubscription = this.apiService.createReply(this.reply).subscribe(res => {
-      if (res.status === 201) {
-        this.submitted = true;
-      } else {
-        console.log('Unable to create message');
-        // @TODO: handle error
-      }
-    });
-  }
-
-  OnDestroy() {
-    this.createSubscription.unsubscribe();
+    this.submitted = true;
+    this.store.dispatch(new ReplyCreate({ reply: this.reply }));
+    this.reply = new Reply(this.parentId);
   }
 
 }
