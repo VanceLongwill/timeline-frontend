@@ -1,0 +1,43 @@
+{
+  "messages": {
+    "status": 200,
+    "data": [
+      {
+        "id": 1,
+        "body": "1st message",
+        "author": "John Smith",
+        "createdAt": "2012-04-23T18:25:43.511Z",
+        "replies": [
+          {
+            "id": 1,
+            "body": "first comment",
+            "author": "Bob Smith",
+            "createdAt": "2012-04-23T18:25:43.511Z",
+            "parentId": 1
+          },
+          {
+            "id": 2,
+            "body": "second comment",
+            "author": "Some username",
+            "createdAt": "2012-04-23T18:25:43.511Z",
+            "parentId": 1
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "body": "2nd message",
+        "author": "John Smith",
+        "createdAt": "2012-04-23T18:25:43.511Z",
+        "replies": null
+      },
+      {
+        "id": 3,
+        "body": "3rd message",
+        "author": "John Smith",
+        "createdAt": "2012-04-23T18:25:43.511Z"
+      }
+    ]
+  }
+
+}
