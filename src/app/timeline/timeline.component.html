@@ -1,5 +1,5 @@
 <section class="timeline" name="timeline">
-  <div *ngFor="let msg of messages">
+  <div *ngFor="let msg of messages | async">
     <app-message [msg]="msg"></app-message>
   </div>
 </section>

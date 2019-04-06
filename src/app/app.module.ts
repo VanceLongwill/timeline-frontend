@@ -15,6 +15,10 @@ import { ReplyComponent } from './reply/reply.component';
 import {
   NgbAccordionModule,
 } from '@ng-bootstrap/ng-bootstrap';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './effects/app.effects';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,9 @@ import {
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgbAccordionModule
+    NgbAccordionModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([AppEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

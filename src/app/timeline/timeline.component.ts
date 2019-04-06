@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
+import { Store, select } from '@ngrx/store';
 import { Message } from '../message.model';
+
+import { MessagesFetch, MessagesFetchFail, MessagesFetchSuccess } from '../actions/messages.actions';
+import { MessagesState } from '../reducers/messages.reducer';
+
 import { ApiService } from '../api.service';
 
 @Component({
@@ -10,8 +15,8 @@ import { ApiService } from '../api.service';
   styleUrls: ['./timeline.component.scss']
 })
 export class TimelineComponent implements OnInit {
-  isLoadingMessages = true;
-  messages: Message[];
+  isLoadingMessages: Observable<boolean>;
+  messages: Observable<Message[]>;
   // messages: Message[] = [
   //   {
   //     id: 1,
@@ -27,20 +32,13 @@ export class TimelineComponent implements OnInit {
   //   }
   // ];
   getSubscription: Subscription;
-  constructor(private apiService: ApiService) { }
+  constructor(private store: Store<MessagesState>) {
+    this.messages = store.pipe(select('messages'), select('messages'));
+    this.isLoadingMessages = store.pipe(select('loading'));
+  }
 
   ngOnInit() {
-    this.getSubscription = this.apiService.getMessages().subscribe(res => {
-      this.messages = res.data;
-      this.isLoadingMessages = false;
-    }, err => {
-      console.log(err);
-      this.isLoadingMessages = false;
-    });
+    this.store.dispatch(new MessagesFetch());
   }
 
-
-  OnDestroy() {
-    this.getSubscription.unsubscribe();
-  }
 }
