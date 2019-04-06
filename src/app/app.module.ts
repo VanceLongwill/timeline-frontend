@@ -12,7 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComposeReplyComponent } from './compose-reply/compose-reply.component';
 import { ReplyComponent } from './reply/reply.component';
 // Use the below for app-wide access to bootstrap components (try to import individual components as needed to keep bundle size small)
-// import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbAccordionModule,
+} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -27,8 +29,8 @@ import { ReplyComponent } from './reply/reply.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
-    // NgbModule
+    HttpClientModule,
+    NgbAccordionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

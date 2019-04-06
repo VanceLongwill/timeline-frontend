@@ -1,6 +1,5 @@
-<app-compose-message></app-compose-message>
-<ul>
-  <li *ngFor="let msg of messages">
+<section class="timeline" name="timeline">
+  <div *ngFor="let msg of messages">
     <app-message [msg]="msg"></app-message>
-  </li>
-</ul>
+  </div>
+</section>

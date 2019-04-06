@@ -1,11 +1,14 @@
-<form #composeReplyForm="ngForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <div class="form-group" [hidden]="!body.valid">
-      <input type="text" class="formControl" [(ngModel)]="reply.author" placeholder="Enter your username" name="author" required/>
+<form class="d-flex flex-column align-items-center align-content-between" #composeReplyForm="ngForm" [ngClass]="{'was-validated': body.dirty }" (ngSubmit)="onSubmit(); composeReplyForm.reset()">
+    <div class="input-group mt-3" [hidden]="!body.valid">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroupPrepend2">@</span>
+      </div>
+      <input type="text" class="form-control" [(ngModel)]="reply.author" placeholder="Enter your username" name="author" required/>
     </div>
-      <input type="text" class="formControl" [(ngModel)]="reply.body" placeholder="Write something..." #body="ngModel" name="body" required/>
-    <button type="submit" class="btn btn-secondary mr-2" [disabled]="!composeReplyForm.form.valid">
+    <div class="input-group p-3">
+      <textarea type="text" class="form-control" [(ngModel)]="reply.body" placeholder="Write something..." #body="ngModel" name="body" required></textarea>
+    </div>
+    <button *ngIf="body.dirty" type="submit" class="btn btn-primary" [disabled]="!composeReplyForm.form.valid">
       Reply
     </button>
-  </div>
 </form>

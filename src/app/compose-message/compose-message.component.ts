@@ -18,15 +18,11 @@ export class ComposeMessageComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
-    // @TODO: handle loading state
     this.submitted = true;
     this.createSubscription = this.apiService.createMessage(this.msg).subscribe(res => {
-      if (res.status === 201) {
-        // @TODO: handle success
-      } else {
-        console.log('Unable to create message');
-        // @TODO: handle error
-      }
+
+    }, err => {
+      // @TODO: handle error
     });
   }
 

@@ -13,7 +13,6 @@ import { Reply } from '../reply.model';
 export class MessageComponent implements OnInit {
   @Input() msg: Message;
   replies: Reply[];
-  hideReplies = true;
   isLoadingReplies = false;
   getSubscription: Subscription;
   constructor(private apiService: ApiService) {}
@@ -37,7 +36,6 @@ export class MessageComponent implements OnInit {
     if (this.replies == null) {
       this.fetchReplies();
     }
-    this.hideReplies = !this.hideReplies;
   }
 
   OnDestroy() {

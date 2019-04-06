@@ -1,22 +1,38 @@
-<div>
-  <p>
-    {{ msg.body }}
-  </p>
-  <span>
-    {{ msg.createdAt | date:'medium' }}
-  </span>
-  <span>
-    {{ msg.author }}
-  </span>
-</div>
-<div>
-  <button type="button" *ngIf="hideReplies" class="btn btn-secondary-outline" (click)="toggleReplies()">Show replies</button>
-  <button type="button" *ngIf="!hideReplies" class="btn btn-secondary-outline" (click)="toggleReplies()">Hide replies</button>
-  <ul [hidden]="hideReplies">
-    <li *ngFor="let reply of replies">
-      <app-reply [reply]="reply"></app-reply>
-    </li>
-  </ul>
-  <div class="error" *ngIf="">Password is required</div>
-</div>
-<app-compose-reply [parentId]="msg.id"></app-compose-reply>
+<ngb-accordion (panelChange)="toggleReplies()">
+  <ngb-panel>
+    <ng-template ngbPanelHeader let-opened="opened">
+      <div class="d-flex align-items-center justify-content-between">
+        <div>
+          <p class="text-body">
+            {{ msg.body }}
+          </p>
+          <small>
+            <span class="text-black-50">
+              Posted at
+            </span>
+            {{ msg.createdAt | date:'mediumTime' }}
+            <span class="text-black-50">
+              on
+            </span>
+            {{ msg.createdAt | date:'mediumDate' }}
+          </small>
+          <small class="text-info">
+            <span class="text-black-50">
+              by
+            </span>
+            {{ msg.author }}
+          </small>
+        </div>
+        <button ngbPanelToggle class="btn btn-link p-0"><span class="text-muted text-small">{{ opened ? 'Hide replies' : 'Show replies' }}</span></button>
+      </div>
+    </ng-template>
+    <ng-template ngbPanelContent>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let reply of replies">
+          <app-reply [reply]="reply"></app-reply>
+        </li>
+      </ul>
+      <app-compose-reply [parentId]="msg.id"></app-compose-reply>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>

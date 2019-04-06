@@ -1,11 +1,14 @@
-<form #composeForm="ngForm" (ngSubmit)="onSubmit()">
-  <div class="form-group" [hidden]="!body.valid">
-    <input type="text" class="formControl" [(ngModel)]="msg.author" placeholder="Enter your username" name="author" required/>
+<form class="d-flex flex-column align-items-center align-content-between" #composeForm="ngForm" [ngClass]="{'was-validated': body.dirty }" (ngSubmit)="onSubmit(); composeForm.reset()">
+  <div class="input-group mt-3" [hidden]="!body.valid">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroupPrepend2">@</span>
+    </div>
+    <input type="text" class="form-control" [(ngModel)]="msg.author" placeholder="Enter your username" name="author" required/>
   </div>
-  <div class="form-group">
-    <input type="text" class="formControl" [(ngModel)]="msg.body" placeholder="Write something..." #body="ngModel" name="body" required/>
+  <div class="input-group p-3">
+    <textarea class="form-control" [(ngModel)]="msg.body" placeholder="Write something..." #body="ngModel" name="body" required></textarea>
   </div>
-  <button type="submit" class="btn btn-primary mr-2" [disabled]="!composeForm.form.valid">
+  <button type="submit" *ngIf="body.dirty" class="btn btn-primary" [disabled]="!composeForm.form.valid">
     Post
   </button>
 </form>

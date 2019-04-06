@@ -1,11 +1,21 @@
 <div>
-  <p>
+  <p class="text-body">
     {{ reply.body }}
   </p>
-  <span>
-    {{ reply.createdAt | date:'medium' }}
+  <small class="text-secondary">
+    <span class="text-black-50">
+      Posted at
+    </span>
+    {{ reply.createdAt | date:'mediumTime' }}
+    <span class="text-black-50">
+      on
+    </span>
+    {{ reply.createdAt | date:'mediumDate' }}
+  </small>
+  <span class="text-black-50">
+    by
   </span>
-  <span>
+  <small class="text-info">
     {{ reply.author }}
-  </span>
+  </small>
 </div>
