@@ -23,7 +23,7 @@
             {{ msg.author }}
           </small>
         </div>
-        <button ngbPanelToggle class="btn btn-link p-0"><span class="text-muted text-small">{{ opened ? 'Hide replies' : 'Show replies' }}</span></button>
+        <button ngbPanelToggle [disabled]="msg.id" class="btn btn-link p-0"><span class="text-muted text-small">{{ opened ? 'Hide replies' : 'Show replies' }}</span></button>
       </div>
     </ng-template>
     <ng-template ngbPanelContent>

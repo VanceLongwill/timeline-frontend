@@ -38,6 +38,9 @@ export class MessageCreate implements Action {
 
 export class MessageCreateSuccess implements Action {
   readonly type = ActionTypes.MessageCreateSuccess;
+  constructor(public payload: {
+    id: Message['id']
+  }) {}
 }
 
 export class MessageCreateFail implements Action {

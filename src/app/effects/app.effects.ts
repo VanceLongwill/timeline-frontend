@@ -35,7 +35,7 @@ export class AppEffects {
       ofType(MessageActions.ActionTypes.MessageCreate),
       mergeMap((action: MessageActions.MessageCreate) => this.apiService.createMessage(action.payload.message)
         .pipe(
-          map(res => new MessageActions.MessageCreateSuccess()),
+          map(res => new MessageActions.MessageCreateSuccess({ id: res.resourceId })),
           catchError(res => of(new MessageActions.MessageCreateFail({
             error: res ? res.message : 'unknown error'
           })))

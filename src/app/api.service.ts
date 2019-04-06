@@ -10,15 +10,19 @@ import { Reply } from './reply.model';
 // Generic interface for our api responses
 interface ApiResponse<T> {
   status: number;
-  message?: string;
+  message: string;
   data: T;
 }
 
 // Alias types for convenience & clarity
 // NB: createdAt fields from the API will be strings not Date objects
 type GetMessagesResponse = ApiResponse<Message[]>;
-type CreateMessageResponse  = ApiResponse<null>;
-type CreateReplyResponse  = ApiResponse<null>;
+interface CreateMessageResponse extends ApiResponse<null> {
+  resourceId: string;
+}
+interface CreateReplyResponse extends ApiResponse<null> {
+  resourceId: string;
+}
 type GetRepliesResponse = ApiResponse<Reply[]>;
 
 @Injectable({

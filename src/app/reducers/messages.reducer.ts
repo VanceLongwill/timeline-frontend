@@ -57,9 +57,17 @@ export function messagesReducer(state: MessagesState = initialState, action: Mes
         messages,
       };
     case MessagesActions.ActionTypes.MessageCreateSuccess:
+      const createdMessage = state.messages[0];
       return {
         ...state,
         hasError: false,
+        messages: [
+          {
+            ...createdMessage,
+            id: action.payload.id,
+          },
+          ...state.messages.slice(1),
+        ]
       };
     default:
       return state;
