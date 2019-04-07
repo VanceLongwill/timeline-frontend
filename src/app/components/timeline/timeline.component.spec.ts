@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { TimelineComponent } from './timeline.component';
 
@@ -29,5 +30,13 @@ describe('TimelineComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show a loading message', () => {
+    component.isLoadingMessages = new Observable(observer => {
+      observer.next(true);
+    });
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('span').innerText).toContain('Loading');
   });
 });
