@@ -25,8 +25,6 @@ describe('AppEffects', () => {
   });
 
   it('should be created', () => {
-    const valueServiceSpy =
-      jasmine.createSpyObj('ApiService', ['getValue']);
     expect(effects).toBeTruthy();
   });
 });

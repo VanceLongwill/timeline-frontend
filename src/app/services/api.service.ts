@@ -56,7 +56,7 @@ export class ApiService {
   }
 
   createReply(reply: Reply): Observable<CreateReplyResponse> {
-    return this.http.post<CreateReplyResponse>(`${this.baseUrl}/messages/${reply.parentId}`, reply)
+    return this.http.post<CreateReplyResponse>(`${this.baseUrl}/messages/${reply.parentId}/replies`, reply)
       .pipe(
         retry(this.retryLimit)
       );
@@ -64,7 +64,7 @@ export class ApiService {
 
   getReplies(msgId: Message['id']): Observable<GetRepliesResponse> {
     // @TODO: pagination
-    return this.http.get<GetRepliesResponse>(`${this.baseUrl}/messages/${msgId}`)
+    return this.http.get<GetRepliesResponse>(`${this.baseUrl}/messages/${msgId}/replies`)
       .pipe(
         retry(this.retryLimit),
         map((res) => {
