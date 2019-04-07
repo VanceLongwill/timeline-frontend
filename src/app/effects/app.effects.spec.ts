@@ -3,6 +3,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
 
 import { AppEffects } from './app.effects';
+import { ApiService } from '../services/api.service';
 
 describe('AppEffects', () => {
   let actions$: Observable<any>;
@@ -12,7 +13,11 @@ describe('AppEffects', () => {
     TestBed.configureTestingModule({
       providers: [
         AppEffects,
-        provideMockActions(() => actions$)
+        provideMockActions(() => actions$),
+        {
+          provide: ApiService,
+          useValue: jasmine.createSpyObj('apiService', ['getMessages', 'createMessage', 'getReplies', 'createReply'])
+        }
       ]
     });
 
@@ -20,6 +25,8 @@ describe('AppEffects', () => {
   });
 
   it('should be created', () => {
+    const valueServiceSpy =
+      jasmine.createSpyObj('ApiService', ['getValue']);
     expect(effects).toBeTruthy();
   });
 });

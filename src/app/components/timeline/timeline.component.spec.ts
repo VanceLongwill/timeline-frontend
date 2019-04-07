@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { TimelineComponent } from './timeline.component';
+
+import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('TimelineComponent', () => {
   let component: TimelineComponent;
@@ -8,7 +12,11 @@ describe('TimelineComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TimelineComponent ]
+      declarations: [ TimelineComponent ],
+      schemas: [
+        NO_ERRORS_SCHEMA
+      ],
+      providers: [ provideMockStore({}) ]
     })
     .compileComponents();
   }));
