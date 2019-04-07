@@ -2,6 +2,12 @@
   <span *ngIf="isLoadingMessages | async" class="text-secondary">
     Loading messages...
   </span>
+  <span *ngIf="!(hasError | async) && !(isLoadingMessages | async) && (messages | async)?.length==0">
+    No messages found
+  </span>
+  <span *ngIf="hasError | async">
+    Error loading messages
+  </span>
   <div *ngFor="let msg of messages | async">
     <app-message [msg]="msg"></app-message>
   </div>

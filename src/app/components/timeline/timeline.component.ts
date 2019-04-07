@@ -13,6 +13,7 @@ import { State } from '../../reducers';
 })
 export class TimelineComponent implements OnInit {
   isLoadingMessages: Observable<boolean>;
+  hasError: Observable<boolean>;
   messages: Observable<Message[]>;
   // messages: Message[] = [
   //   {
@@ -32,6 +33,7 @@ export class TimelineComponent implements OnInit {
     // store.messages.messages
     this.messages = store.pipe(select('messages'), select('messages'));
     this.isLoadingMessages = store.pipe(select('messages'), select('loading'));
+    this.hasError = store.pipe(select('messages'), select('hasError'));
   }
 
   ngOnInit() {
