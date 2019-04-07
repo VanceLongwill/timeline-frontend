@@ -5,7 +5,7 @@
     </div>
     <input type="text" class="form-control" [(ngModel)]="msg.author" placeholder="Enter your username" name="author" required/>
   </div>
-  <div class="input-group p-3">
+  <div class="input-group p-2">
     <textarea class="form-control" [(ngModel)]="msg.body" placeholder="Write something..." #body="ngModel" name="body" required></textarea>
   </div>
   <button type="submit" *ngIf="body.dirty" class="btn btn-primary" [disabled]="!composeForm.form.valid">

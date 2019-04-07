@@ -1,4 +1,7 @@
 <section class="timeline" name="timeline">
+  <button [disabled]="isLoadingMessages | async" (click)="handleRefresh()" class="btn btn-sm btn-outline-primary mb-3">
+    Refresh timeline
+  </button>
   <span *ngIf="isLoadingMessages | async" class="text-secondary">
     Loading messages...
   </span>
